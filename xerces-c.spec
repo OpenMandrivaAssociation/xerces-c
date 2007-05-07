@@ -125,7 +125,7 @@ cd $XERCESCROOT/src/xercesc
     -P %_prefix \
 	-C --libdir=%_libdir
 
-%make
+make
 
 %install
 rm -rf %buildroot
