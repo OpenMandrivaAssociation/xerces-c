@@ -19,6 +19,7 @@ Summary:	Xerces-C++ validating XML parser
 Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: zlib-devel
+BuildRequires: libicu-devel
 BuildConflicts: %{_lib}xerces-c26-devel
 
 %description
