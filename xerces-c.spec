@@ -5,12 +5,12 @@
 
 %define libname %mklibname xerces-c %minor
 
-Name:	xerces-c
-Version:	2.7.0
-Release:	%mkrel 4
+Name: xerces-c
+Version: 2.7.0
+Release: %mkrel 5
 Epoch: 1
-URL:	http://xml.apache.org/xerces-c/
-License:	Apache
+URL: http://xml.apache.org/xerces-c/
+License: Apache
 Source0: %{name}-src_%{tarversion}.tar.gz
 Patch0: xerces-c-lib64.patch
 # Most of apps 
@@ -32,9 +32,6 @@ code, samples and API documentation are provided with the parser. For
 portability, care has been taken to make minimal use of templates, no RTTI,
 and minimal use of #ifdefs.
 
-%files
-%defattr(-,root,root,-)
-%_prefix/bin/*
 
 #----------------------------------------------------------------------
 
@@ -61,6 +58,7 @@ Summary:	Header files for Xerces-C++ validating XML parser
 Provides: xerces-c-devel
 Provides: libxerces-c-devel
 Obsoletes: %{_lib}xerces-c26-devel
+Obsoletes: xerces-c
 
 %description -n %libname-devel
 Header files you can use to develop XML applications with Xerces-C++.
@@ -75,7 +73,6 @@ manipulating, and validating XML documents.
 %_libdir/libxerces-c.so
 %_libdir/libxerces-depdom.so
 %_includedir/xercesc
-%_datadir/%{name}/samples
 
 #----------------------------------------------------------------------
 
@@ -108,27 +105,27 @@ manipulating, and validating XML documents.
 %build
 
 export XERCESCROOT=%_builddir/%name-src_%{tarversion}
+export ICUROOT=%_prefix
+export CFLAGS="%optflags -fno-strict-aliasing"
+export CXXFLAGS="%optflags -fno-strict-aliasing"
+
 cd $XERCESCROOT/src/xercesc
 ./runConfigure \
-	-plinux \
-	-cgcc \
-	-xg++ \
-	-minmem \
-	-nsocket \
-	-tnative \
-	-rpthreads \
-	-P%_prefix 
-
-make
-
-cd $XERCESCROOT/samples
-./runConfigure \
-	-plinux \
-	-cgcc \
-	-xg++
+	-p linux \
+	-c gcc \
+	-x g++ \
+	-m inmem \
+	-n socket \
+	-t icu \
+%if "%{_lib}" != "lib"
+    -b "64" \
+%else
+    -b "32" \
+%endif
+    -P %_prefix \
+	-C --libdir=%_libdir
 
 %make
-
 
 %install
 rm -rf %buildroot
@@ -136,12 +133,6 @@ rm -rf %buildroot
 export XERCESCROOT=%_builddir/%name-src_%{tarversion}
 cd $XERCESCROOT/src/xercesc
 %makeinstall_std
-
-mkdir -p %buildroot%_bindir
-#we don't want obj directory
-install `find $XERCESCROOT/bin -type f -maxdepth 1` %buildroot%_bindir
-mkdir -p %buildroot%_datadir/%name
-cp -a $XERCESCROOT/samples %buildroot%_datadir/%name
 
 %clean
 rm -rf %buildroot
