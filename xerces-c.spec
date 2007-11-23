@@ -7,7 +7,7 @@
 
 Name: xerces-c
 Version: 2.7.0
-Release: %mkrel 5
+Release: %mkrel 6
 Epoch: 1
 URL: http://xml.apache.org/xerces-c/
 License: Apache
