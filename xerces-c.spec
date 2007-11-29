@@ -7,7 +7,7 @@
 
 Name: xerces-c
 Version: 2.7.0
-Release: %mkrel 6
+Release: %mkrel 7
 Epoch: 1
 URL: http://xml.apache.org/xerces-c/
 License: Apache
@@ -54,7 +54,7 @@ xerces-c library
 
 %package -n %libname-devel
 Requires: %libname = %epoch:%version-%release
-Group: Books/Other
+Group: Development/C
 Summary:	Header files for Xerces-C++ validating XML parser
 Provides: xerces-c-devel
 Provides: libxerces-c-devel
