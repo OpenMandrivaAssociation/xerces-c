@@ -17,7 +17,6 @@ Patch0: xerces-c-lib64.patch
 Patch1: xerces-c-pvtheader.patch
 Summary:	Xerces-C++ validating XML parser
 Group: System/Libraries
-BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: zlib-devel
 BuildRequires: libicu-devel
 BuildConflicts: %{_lib}xerces-c26-devel
