@@ -38,7 +38,7 @@ and minimal use of #ifdefs.
 
 %package -n %libname
 Group: System/Libraries
-Summary: xerces-c library
+Summary: Xerces-c library
 
 %description -n %libname
 xerces-c library
