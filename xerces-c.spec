@@ -1,13 +1,13 @@
-%define tarversion 2_7_0
+%define tarversion 2_8_0
 
-%define major 27
-%define minor 0
+%define major 28
 
-%define libname %mklibname xerces-c %minor
+%define libname %mklibname xerces-c %major
+%define libdev %mklibname -d xerces-c
 
 Name: xerces-c
-Version: 2.7.0
-Release: %mkrel 7
+Version: 2.8.0
+Release: %mkrel 1
 Epoch: 1
 URL: http://xml.apache.org/xerces-c/
 License: Apache
@@ -52,7 +52,7 @@ xerces-c library
 
 #----------------------------------------------------------------------
 
-%package -n %libname-devel
+%package -n %libdev
 Requires: %libname = %epoch:%version-%release
 Group: Development/C
 Summary:	Header files for Xerces-C++ validating XML parser
@@ -60,8 +60,9 @@ Provides: xerces-c-devel
 Provides: libxerces-c-devel
 Obsoletes: %{_lib}xerces-c26-devel
 Obsoletes: xerces-c
+Obsoletes: %{_lib}xerces-c0-devel
 
-%description -n %libname-devel
+%description -n %libdev
 Header files you can use to develop XML applications with Xerces-C++.
 
 Xerces-C++ is a validating XML parser written in a portable subset of C++.
@@ -69,7 +70,7 @@ Xerces-C++ makes it easy to give your application the ability to read and
 write XML data. A shared library is provided for parsing, generating,
 manipulating, and validating XML documents.
 
-%files -n %libname-devel
+%files -n %libdev
 %defattr(-,root,root,-)
 %_libdir/libxerces-c.so
 %_libdir/libxerces-depdom.so
@@ -104,20 +105,18 @@ manipulating, and validating XML documents.
 %patch1 -p1
 
 %build
-
 export XERCESCROOT=%_builddir/%name-src_%{tarversion}
-export ICUROOT=%_prefix
-export CFLAGS="%optflags -fno-strict-aliasing"
-export CXXFLAGS="%optflags -fno-strict-aliasing"
 
 cd $XERCESCROOT/src/xercesc
 ./runConfigure \
-	-p linux \
-	-c gcc \
-	-x g++ \
-	-m inmem \
-	-n socket \
-	-t icu \
+	-plinux \
+	-cgcc \
+	-xg++ \
+	-minmem \
+	-nsocket \
+	-tnative \
+        -rpthreads \
+	-d \
 %if "%{_lib}" != "lib"
     -b "64" \
 %else
