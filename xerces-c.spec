@@ -5,6 +5,9 @@
 %define libname %mklibname xerces-c %major
 %define libdev %mklibname -d xerces-c
 
+%define enable_debug 0
+%{?_enable_debug: %{expand: %%global enable_debug 1}}
+
 Name: xerces-c
 Version: 2.8.0
 Release: %mkrel 1
@@ -120,8 +123,10 @@ cd $XERCESCROOT/src/xercesc
 	-minmem \
 	-nsocket \
 	-tnative \
-        -rpthreads \
+	-rpthreads \
+%if %{enable_debug}
 	-d \
+%endif
 %if "%{_lib}" != "lib"
     -b "64" \
 %else
@@ -130,7 +135,7 @@ cd $XERCESCROOT/src/xercesc
     -P %_prefix \
 	-C --libdir=%_libdir
 
-%make
+make
 
 %install
 rm -rf %buildroot
