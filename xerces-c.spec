@@ -15,6 +15,9 @@ Source0: %{name}-src_%{tarversion}.tar.gz
 Patch0: xerces-c-lib64.patch
 # Most of apps 
 Patch1: xerces-c-pvtheader.patch
+# XQilla patches
+Patch2: xercesc_content_type.patch
+Patch3: xercesc_regex.patch
 Summary:	Xerces-C++ validating XML parser
 Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-root
@@ -103,6 +106,8 @@ manipulating, and validating XML documents.
 %patch0 -p1 -b .orig
 %endif
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 export XERCESCROOT=%_builddir/%name-src_%{tarversion}
@@ -125,7 +130,7 @@ cd $XERCESCROOT/src/xercesc
     -P %_prefix \
 	-C --libdir=%_libdir
 
-make
+%make
 
 %install
 rm -rf %buildroot
