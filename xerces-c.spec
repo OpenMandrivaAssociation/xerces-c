@@ -10,7 +10,7 @@
 
 Name: xerces-c
 Version: 2.8.0
-Release: %mkrel 2
+Release: %mkrel 3
 Epoch: 1
 URL: http://xml.apache.org/xerces-c/
 License: Apache
@@ -21,6 +21,7 @@ Patch1: xerces-c-pvtheader.patch
 # XQilla patches
 Patch2: xercesc_content_type.patch
 Patch3: xercesc_regex.patch
+Patch4: xerces-c-2.8.x-CVE-2009-1885.diff
 Summary:	Xerces-C++ validating XML parser
 Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-root
@@ -115,6 +116,7 @@ manipulating, and validating XML documents.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p0 -b .CVE-2009-1885
 
 %build
 export XERCESCROOT=%_builddir/%name-src_%{tarversion}
