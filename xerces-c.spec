@@ -1,20 +1,19 @@
-%define major 3.0
+%define major 3.1
 %define libname %mklibname xerces-c %{major}
 %define develname %mklibname xerces-c -d
 
 Summary:	Xerces-C++ validating XML parser
 Name:		xerces-c
-Version:	3.0.1
+Version:	3.1.0
 Release:	%mkrel 1
 License:	Apache
 Group:		System/Libraries
 URL:		http://xml.apache.org/xerces-c/
 Source0:	http://apache.dataphone.se/xerces/c/3/sources/%{name}-%{version}.tar.gz
 Patch0:		xerces-c-3.0.1-include.patch
-Patch1:		xerces-c-3.0.1-CVE-2009-1885.patch
 BuildRequires:	curl-devel
 BuildRequires:	zlib-devel
-BuildRequires:	libicu-devel
+BuildRequires:	libicu-devel icu
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -73,14 +72,12 @@ manipulating, and validating XML documents.
 This package contains the documentation for Xerces-C++.
 
 %prep
-
 %setup -q -n %{name}-%{version}
-%patch0 -p0
-%patch1 -p0 -b .CVE-2009-1885
+#patch0 -p0
 
 %build
-rm -f config.cache
-libtoolize --copy --force; aclocal -I m4; autoheader; automake -a -c -f; autoconf
+#rm -f config.cache
+#libtoolize --copy --force; aclocal -I m4; autoheader; automake -a -c -f; autoconf
 
 %configure2_5x \
     --disable-static \
