@@ -83,9 +83,10 @@ This package contains the documentation for Xerces-C++.
     --disable-static \
     --enable-netaccessor-curl \
     --enable-transcoder-icu \
-    --enable-msgloader-icu \
-    --disable-sse2
-
+%ifarch %{ix86}
+    --disable-sse2 \
+%endif
+    --enable-msgloader-icu
 %make
 
 %check
