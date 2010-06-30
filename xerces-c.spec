@@ -5,7 +5,7 @@
 Summary:	Xerces-C++ validating XML parser
 Name:		xerces-c
 Version:	3.1.0
-Release:	%mkrel 2
+Release:	%mkrel 3
 License:	Apache
 Group:		System/Libraries
 URL:		http://xml.apache.org/xerces-c/
@@ -83,7 +83,8 @@ This package contains the documentation for Xerces-C++.
     --disable-static \
     --enable-netaccessor-curl \
     --enable-transcoder-icu \
-    --enable-msgloader-icu
+    --enable-msgloader-icu \
+    --disable-sse2
 
 %make
 
