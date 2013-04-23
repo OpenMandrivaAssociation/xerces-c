@@ -5,14 +5,15 @@
 Summary:	Xerces-C++ validating XML parser
 Name:		xerces-c
 Version:	3.1.1
-Release:	%mkrel 4
+Release:	5
 License:	Apache
 Group:		System/Libraries
 URL:		http://xml.apache.org/xerces-c/
 Source0:	http://apache.dataphone.se/xerces/c/3/sources/%{name}-%{version}.tar.gz
 BuildRequires:	curl-devel
 BuildRequires:	zlib-devel
-BuildRequires:	libicu-devel icu
+BuildRequires:	icu-devel
+BuildRequires:	icu
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
