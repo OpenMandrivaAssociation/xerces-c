@@ -1,2 +1,4 @@
+removed_sources:
+  xerces-c-3.1.1.tar.gz: 177ec838c5119df57ec77eddec9a29f7e754c8b2
 sources:
-  "xerces-c-3.1.1.tar.gz": 177ec838c5119df57ec77eddec9a29f7e754c8b2
+  xerces-c-3.1.2.tar.xz: 89054c495c27b971404b844f6ac1f219152439ee
