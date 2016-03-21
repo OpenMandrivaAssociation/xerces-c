@@ -4,12 +4,12 @@
 
 Summary:	Xerces-C++ validating XML parser
 Name:		xerces-c
-Version:	3.1.2
+Version:	3.1.3
 Release:	1
 License:	Apache
 Group:		System/Libraries
 URL:		http://xml.apache.org/xerces-c/
-Source0:	http://apache.dataphone.se/xerces/c/3/sources/%{name}-%{version}.tar.xz
+Source0:	http://mirror.switch.ch/mirror/apache/dist//xerces/c/%(echo %{version}|cut -d. -f1)/sources/xerces-c-%{version}.tar.xz
 BuildRequires:	curl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	icu-devel
@@ -71,12 +71,13 @@ manipulating, and validating XML documents.
 This package contains the documentation for Xerces-C++.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q
+# Looks like they forgot to remove svn control files when building the
+# tarball...
+# And they do get copied into the -doc package, so let's get rid of them
+find . -name .svn |xargs rm -rf
 
 %build
-#rm -f config.cache
-#libtoolize --copy --force; aclocal -I m4; autoheader; automake -a -c -f; autoconf
-
 %configure \
     --enable-netaccessor-curl \
     --enable-transcoder-icu \
