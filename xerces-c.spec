@@ -4,8 +4,8 @@
 
 Summary:	Xerces-C++ validating XML parser
 Name:		xerces-c
-Version:	3.1.3
-Release:	3
+Version:	3.1.4
+Release:	1
 License:	Apache
 Group:		System/Libraries
 URL:		http://xml.apache.org/xerces-c/
