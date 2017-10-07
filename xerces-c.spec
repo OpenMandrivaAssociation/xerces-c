@@ -1,10 +1,10 @@
-%define major 3.1
+%define major 3.2
 %define libname %mklibname xerces-c %{major}
 %define develname %mklibname xerces-c -d
 
 Summary:	Xerces-C++ validating XML parser
 Name:		xerces-c
-Version:	3.1.4
+Version:	3.2.0
 Release:	1
 License:	Apache
 Group:		System/Libraries
