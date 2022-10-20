@@ -1,11 +1,12 @@
-%define major 3.2
-%define libname %mklibname xerces-c %{major}
+%define major %(echo %{version}|cut -d. -f1-2)
+%define libname %mklibname xerces-c
+%define oldlibname %mklibname xerces-c %{major}
 %define develname %mklibname xerces-c -d
 
 Summary:	Xerces-C++ validating XML parser
 Name:		xerces-c
-Version:	3.2.3
-Release:	2
+Version:	3.2.4
+Release:	1
 License:	Apache
 Group:		System/Libraries
 URL:		http://xml.apache.org/xerces-c/
@@ -30,6 +31,7 @@ and minimal use of #ifdefs.
 %package -n	%{libname}
 Summary:	Xerces-c library
 Group:		System/Libraries
+%rename %{oldlibname}
 
 %description -n %{libname}
 Xerces-C++ is a validating XML parser written in a portable subset of C++.
