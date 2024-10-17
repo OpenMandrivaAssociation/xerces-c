@@ -9,7 +9,7 @@ Version:	3.2.5
 Release:	2
 License:	Apache
 Group:		System/Libraries
-URL:		http://xml.apache.org/xerces-c/
+URL:		https://xml.apache.org/xerces-c/
 Source0:	http://mirrors.ukfast.co.uk/sites/ftp.apache.org/xerces/c/%(echo %{version}|cut -d. -f1)/sources/xerces-c-%{version}.tar.xz
 BuildRequires:	curl-devel
 BuildRequires:	zlib-devel
