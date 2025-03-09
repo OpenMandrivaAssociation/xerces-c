@@ -5,17 +5,20 @@
 
 Summary:	Xerces-C++ validating XML parser
 Name:		xerces-c
-Version:	3.2.5
-Release:	3
+Version:	3.3.0
+Release:	1
 License:	Apache
 Group:		System/Libraries
 URL:		https://xml.apache.org/xerces-c/
-Source0:	http://mirrors.ukfast.co.uk/sites/ftp.apache.org/xerces/c/%(echo %{version}|cut -d. -f1)/sources/xerces-c-%{version}.tar.xz
-BuildRequires:	curl-devel
-BuildRequires:	zlib-devel
-BuildRequires:	icu-devel
+Source0:	https://github.com/apache/xerces-c/archive/refs/tags/v%{version}.tar.gz
+BuildRequires:	pkgconfig(libcurl)
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(icu-uc)
 BuildRequires:	icu
-Epoch:		1
+BuildRequires:	slibtool
+
+%patchlist
+xerces-c-3.3-fix-build.patch
 
 %description
 Xerces-C++ is a validating XML parser written in a portable subset of C++.
@@ -44,9 +47,9 @@ This package contains the shared xerces-c library.
 %package -n	%{develname}
 Summary:	Header files for Xerces-C++ validating XML parser
 Group:		Development/C++
-Requires:	%{libname} >= %{epoch}:%{version}-%{release}
-Provides:	xerces-c-devel = %{epoch}:%{version}-%{release}
-Provides:	libxerces-c-devel = %{epoch}:%{version}-%{release}
+Requires:	%{libname} >= %{EVRD}
+Provides:	xerces-c-devel = %{EVRD}
+Provides:	libxerces-c-devel = %{EVRD}
 Conflicts:	%{mklibname xerces-c 0 -d}
 Conflicts:	%{mklibname xerces-c 28 -d}
 
@@ -73,13 +76,15 @@ manipulating, and validating XML documents.
 This package contains the documentation for Xerces-C++.
 
 %prep
-%setup -q
+%autosetup -p1
 # Looks like they forgot to remove svn control files when building the
 # tarball...
 # And they do get copied into the -doc package, so let's get rid of them
 find . -name .svn |xargs rm -rf
+sed -i -e 's,libtoolize,slibtoolize,g' reconf
+./reconf
 
-%build
+%conf
 %configure \
     --enable-netaccessor-curl \
     --enable-transcoder-icu \
@@ -87,19 +92,16 @@ find . -name .svn |xargs rm -rf
     --disable-sse2 \
 %endif
     --enable-msgloader-icu
-%make
+
+%build
+%make_build
 
 #Disable tests for now
 #check
 #make check
 
 %install
-%makeinstall_std
-
-# cleanup
-rm -f  %{buildroot}%{_libdir}/libxerces-c.*a
-
-%clean
+%make_install
 
 %files
 %{_bindir}/*
@@ -114,4 +116,3 @@ rm -f  %{buildroot}%{_libdir}/libxerces-c.*a
 
 %files doc
 %doc CREDITS LICENSE doc/*
-
