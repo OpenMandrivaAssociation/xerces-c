@@ -11,6 +11,10 @@ License:	Apache
 Group:		System/Libraries
 URL:		https://xml.apache.org/xerces-c/
 Source0:	https://github.com/apache/xerces-c/archive/refs/tags/v%{version}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	make
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(icu-uc)
